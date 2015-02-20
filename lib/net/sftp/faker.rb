@@ -1,9 +1,22 @@
 require "net/sftp/faker/version"
 
 module Net; module SFTP
+  # Null test double
+  class FakeSSH
+    # Answer always with nil to any method
+    def self.method_missing(method_sym, *args, &block)
+      return nil
+    end
+
+    def method_missing(method_sym, *args, &block)
+      return nil
+    end
+  end
+
   def self.start(host, user, options={}, &block)
-    session = ::Spec::Mocks::Mock.new.as_null_object
-    session.stub(:logger).and_return(Rails.logger)
+    session = FakeSSH.new
+    # session.stub(:logger).and_return(Rails.logger)
+
     sftp = Net::SFTP::Session.new(session, &block).connect!
 
     if block_given?
