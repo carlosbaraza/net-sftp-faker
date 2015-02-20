@@ -42,7 +42,7 @@ module Net; module SFTP
     end
 
     def faker_mkdir
-      # fake the dispatch_request method to delete the request from the
+      # TODO: fake the dispatch_request method to delete the request from the
       # pending requests
 
       pending_requests[id]
