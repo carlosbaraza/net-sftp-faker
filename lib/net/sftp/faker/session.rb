@@ -8,6 +8,7 @@ module Net; module SFTP
 
       connect(&block)
 
+      # Add our set up to configure the missing instance variables.
       faker_setup
 
       self
@@ -24,6 +25,15 @@ module Net; module SFTP
 
     private
 
+    # Set up the instance variables that are not set up because of skipping
+    # the callback methods sent as a block to the SSH Session library.
+    #
+    # Methods skipped:
+    # * when_channel_confirmed
+    # * when_subsystem_started
+    # * when_channel_closed
+    # * when_channel_polled
+    # * do_version
     def faker_setup
       @protocol = Protocol.load(self, 4)
       @pending_requests = {}
